@@ -36,14 +36,15 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 @RestController
 public class ticketController {
-    //
     
-
         @GetMapping("/tickets")
-        public String filterTickets(String apiToken, String apiEndpoint, String filterQuery) throws IOException, URISyntaxException {
+        public String  filterTickets(String apiToken, String apiEndpoint) throws IOException, URISyntaxException {
+             //String filterQuery
+            
+            
              apiToken ="lqLlOBEY7mtKRPxVVE8q";
              apiEndpoint ="https://newaccount1642373523635.freshdesk.com";
-             filterQuery ="id";
+            // filterQuery ="id";
         
         
         final HttpClientBuilder hcBuilder = HttpClientBuilder.create();
@@ -51,12 +52,12 @@ public class ticketController {
         final RequestConfig.Builder rcBuilder = RequestConfig.custom();
         
         // URL object from API endpoint:
-        URL url = new URL(apiEndpoint + "/api/v2/search/tickets");
+        URL url = new URL(apiEndpoint + "/api/v2/tickets");
         final String urlHost = url.getHost();
         final int urlPort = url.getPort();
         final String urlProtocol = url.getProtocol();
         reqBuilder.setUri(url.toURI());
-        reqBuilder.addParameter("query", filterQuery);
+       // reqBuilder.addParameter("query", filterQuery);
         
         // Authentication:
         List<String> authPrefs = new ArrayList<>();
@@ -87,6 +88,7 @@ public class ticketController {
         // Print out:
         HttpEntity body = response.getEntity();
         InputStream is = body.getContent();
+        is.toString();
         BufferedReader br = new BufferedReader(new InputStreamReader(is, Charset.forName("utf-8")));
         String line;
         StringBuilder sb = new StringBuilder();
@@ -115,6 +117,6 @@ public class ticketController {
                 System.out.println("Error in JSON Parsing\n :"+ e);
             }
         }
-        return   response_body; //response_status;
+        return  response_body; //response_status;
     }
 }
